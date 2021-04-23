@@ -155,7 +155,7 @@ async def battle(ctx):
     em = discord.Embed(title="Practice Battle", color=discord.Color.orange())
     em.add_field(name=f"{ctx.author.name}'s HP", value=str(hp_amt))
     em.add_field(name="RPG(bot)'s HP", value=str(bot_hp))
-    em.set_footer(text="You are now in a practice battle with the bot! Use 'r,atk' to attack and 'r,block' to defend.")
+    em.set_footer(text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
     await ctx.send(embed=em)
 
 
