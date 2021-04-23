@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import json
 import os
+import random
 
 token = "# token time #"
 os.chdir(r"C:\Users\danie\PycharmProjects\yt_vid_downloading\remind_bot")
@@ -128,45 +129,4 @@ async def profile(ctx):
 
     hp_amt = users[str(user.id)]["hp"]
     armor_rating = users[str(user.id)]["armor"]
-    atk = users[str(user.id)]["dmg"]
-    exp = users[str(user.id)]["xp"]
-
-    em = discord.Embed(title=f"{ctx.author.name}'s Profile", color=discord.Color.blue())
-    em.add_field(name="**Health**", value=str(hp_amt))
-    em.add_field(name="**Armor**", value=str(armor_rating))
-    em.add_field(name="**Attack**", value=str(atk))
-    em.add_field(name="**Experience**", value=str(exp))
-    await ctx.send(embed=em)
-
-
-# bot battling
-
-in_battle = False   # this is important
-
-
-@bot.command(aliases=['practice','spar'])
-async def battle(ctx):
-    global in_battle
-    in_battle = True
-    bot_hp = 100
-
-    await open_profile(ctx.author)
-    user = ctx.author
-    users = await get_profile()
-
-    hp_amt = users[str(user.id)]["hp"]
-
-    em = discord.Embed(title="Practice Battle", color=discord.Color.orange())
-    em.add_field(name=f"{ctx.author.name}'s HP", value=str(hp_amt))
-    em.add_field(name="RPG(bot)'s HP", value=str(bot_hp))
-    em.set_footer(text="You are now in a practice battle with the bot! Use 'r,atk' to attack and 'r,block' to defend.")
-    await ctx.send(embed=em)
-
-
-@bot.command()
-async def atk(ctx):
-    # WIP
-
-
-
-bot.run(token)
+    atk = users[str(user.id)][
