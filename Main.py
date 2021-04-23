@@ -5,7 +5,7 @@ from discord.ext import commands
 import json
 import os
 
-token = "ODE5OTQ3NDc4ODQ0NTcxNzQ5.YEuBmA.BfQLZpTvuqe5iMzDdiJsQvIKmIU"
+token = "# token time #"
 os.chdir(r"C:\Users\danie\PycharmProjects\yt_vid_downloading\remind_bot")
 intents = discord.Intents.all()
 version = "v0.0.2"
