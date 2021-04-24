@@ -1,4 +1,4 @@
-#   v0.0.2
+#   v0.0.4
 
 import discord
 from discord.ext import commands
@@ -9,7 +9,7 @@ import random
 token = "ODE5OTQ3NDc4ODQ0NTcxNzQ5.YEuBmA.IPV09eEIHnlKUszD3WSHPbCzhSA"
 os.chdir(r"C:\Users\danie\PycharmProjects\yt_vid_downloading\remind_bot")
 intents = discord.Intents.all()
-version = "v0.0.2"
+version = "v0.0.4"
 link = "https://discord.com/api/oauth2/authorize?client_id=819947478844571749&permissions=8&scope=bot"
 prefix_ = "r,"
 bot = commands.Bot(command_prefix=prefix_, intents=intents)
