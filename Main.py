@@ -15,7 +15,7 @@ prefix_ = "r,"
 bot = commands.Bot(command_prefix=prefix_, intents=intents)
 bot.remove_command('help')
 
-
+ 
 # events
 
 @bot.event
