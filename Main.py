@@ -188,13 +188,16 @@ async def battle(ctx):
                 if str(reaction) == '🗡️':
                     miss = random.randint(1, 6)
                     if miss == 5:
-                        mis = await ctx.send(f"{ctx.author.name} missed!")
+                        e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
+                        e.add_field(name=f"{ctx.author.name} *missed!*", value=str(hp_amt) + " HP")
+                        e.add_field(name="RPG(bot)", value=str(bot_hp) + " HP")
+                        e.set_footer(
+                            text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
+                        await x.edit(embed=e)
                         await x.clear_reactions()
                         turn = 'bot'
-                        await asyncio.sleep(1)
-                        await mis.delete()
                         continue
-                    damage = random.randrange(5, atk, 5) - int(bot_armor)
+                    damage = random.randrange(5, atk + 5, 5) - int(bot_armor)
                     if damage < 0:
                         damage = 0
                     bot_hp -= damage
@@ -209,18 +212,18 @@ async def battle(ctx):
                         text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
                     await x.edit(embed=e)
 
-                    bot_defended = False
-
-                    await x.clear_reactions()
-
-                    turn = 'bot'
-
                     if bot_hp <= 0:
                         e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
                         e.add_field(name=f"{ctx.author.name} *wins!*", value=str(hp_amt) + " HP")
                         e.add_field(name="RPG(bot)", value='- **' + str(damage) + '** ' + str(bot_hp) + " HP")
                         await x.edit(embed=e)
                         break
+
+                    bot_defended = False
+
+                    await x.clear_reactions()
+
+                    turn = 'bot'
 
                 elif str(reaction) == '🛡️':
                     e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
@@ -248,11 +251,14 @@ async def battle(ctx):
             if action == 'attack':
                 miss = random.randint(1, 6)
                 if miss == 5:
-                    mis = await ctx.send("RPG(bot) missed!")
+                    e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
+                    e.add_field(name=f"{ctx.author.name}", value=str(hp_amt) + " HP")
+                    e.add_field(name="RPG(bot) *missed!*", value=str(bot_hp) + " HP")
+                    e.set_footer(
+                        text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
+                    await x.edit(embed=e)
                     await x.add_reaction(emoji1)
                     await x.add_reaction(emoji2)
-                    await asyncio.sleep(1)
-                    await mis.delete()
                     turn = 'user'
                     continue
 
@@ -271,15 +277,15 @@ async def battle(ctx):
                     text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
                 await x.edit(embed=e)
 
-                await x.add_reaction(emoji1)
-                await x.add_reaction(emoji2)
-
                 if hp_amt <= 0:
                     e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
                     e.add_field(name=f"{ctx.author.name}", value='- **' + str(damage) + '** ' + str(hp_amt) + " HP")
                     e.add_field(name="RPG(bot) *wins!*", value=str(bot_hp) + " HP")
                     await x.edit(embed=e)
                     break
+
+                await x.add_reaction(emoji1)
+                await x.add_reaction(emoji2)
 
                 turn = 'user'
 
@@ -297,6 +303,5 @@ async def battle(ctx):
                 await x.add_reaction(emoji2)
 
                 turn = 'user'
-
 
 bot.run(token)
