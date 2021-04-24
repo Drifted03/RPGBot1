@@ -144,6 +144,9 @@ async def profile(ctx):
 
 @bot.command(aliases=['practice','spar'])
 async def battle(ctx):
+    emoji1 = '🗡️'
+    emoji2 = '🛡️'
+
     bot_hp = 100
 
     await open_profile(ctx.author)
@@ -151,12 +154,45 @@ async def battle(ctx):
     users = await get_profile()
 
     hp_amt = users[str(user.id)]["hp"]
+    atk = users[str(user.id)]["dmg"]
+    armor_rating = users[str(user.id)]["armor"]
 
     em = discord.Embed(title="Practice Battle", color=discord.Color.orange())
-    em.add_field(name=f"{ctx.author.name}'s HP", value=str(hp_amt))
-    em.add_field(name="RPG(bot)'s HP", value=str(bot_hp))
-    em.set_footer(text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
-    await ctx.send(embed=em)
+    em.add_field(name=f"{ctx.author.name}", value=str(hp_amt) + " HP")
+    em.add_field(name="RPG(bot)", value=str(bot_hp) + " HP")
+    em.set_footer(
+        text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
+    x = await ctx.send(embed=em)
+
+    await x.add_reaction(emoji1)
+    await x.add_reaction(emoji2)
+
+    def check(reaction, user):
+        return user == ctx.author and (reaction.message == x and str(reaction) == '🗡️' or str(reaction) == '🛡️')
+
+    try:
+        reaction, user = await bot.wait_for("reaction_add", timeout=30.0, check=check)
+    except asyncio.TimeoutError:
+        await ctx.send("The battle has timed out.")
+    else:
+        if str(reaction) == '🗡️':
+            miss = random.randint(1, 6)
+            if miss == 5:
+                await ctx.send(f"{ctx.author.name} missed!")
+            damage = random.randrange(5, atk, 5)
+
+            bot_hp -= damage
+
+            e = discord.Embed(title="Practice Battle", color=discord.Color.orange())
+            e.add_field(name=f"{ctx.author.name} *attacked!*", value=str(hp_amt) + " HP")
+            e.add_field(name="RPG(bot)", value='- **' + str(damage) + '** ' + str(bot_hp) + " HP")
+            e.set_footer(
+                text="You are now in a practice battle with the bot! React with the sword to attack or the shield to defend.")
+
+            await x.edit(embed=e)
+
+        elif str(reaction) == '🛡️':
+            await ctx.send('pp')
 
 
 bot.run(token)
