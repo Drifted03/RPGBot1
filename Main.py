@@ -21,6 +21,9 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('{0.user} is ready for battle!'.format(bot))
+    
+    activity = discord.Game(name="in a battle }{ r,", type=3)
+    await bot.change_presence(status=discord.Status.online, activity=activity)
 
 
 @bot.event
