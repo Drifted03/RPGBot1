@@ -1,9 +1,9 @@
 # RPGBot1
-This code belongs to <TEAM NAME UNDECIDED>.
+This code belongs to Pyfever.
 
 
 ==================================================================================================================
-                                            BATTLE BOT NOTES
+                                            RPG BOT NOTES
 
 - xp is only gained through PvP
 - leveling up increases attack and health
